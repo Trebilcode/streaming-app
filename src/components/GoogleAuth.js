@@ -13,21 +13,41 @@ const GoogleAuth = () => {
 				scope: 'email',
 			}).then(() => {
           authRef.current = window.gapi.auth2.getAuthInstance();
-          setIsSignedIn(authRef.current.isSignedIn.get())
+          setIsSignedIn(authRef.current.isSignedIn.get());
+          authRef.current.isSignedIn.listen(onAuthChange)
       }).catch((err) => {
         
       });
 		});
   }, []);
 
+  const onAuthChange = () => {
+    setIsSignedIn(authRef.current.isSignedIn.get())
+  }
+
+  const onSignInClick = () => {
+    authRef.current.signIn()
+  }
+  const onSignOutClick = () => {
+    authRef.current.signOut()
+  }
   const renderAuthButton = () => {
     if(isSignedIn === null){
-      return <div>I dont know if we are signed in</div>
+      return null
     } else if (isSignedIn) {
-      return <div>Signed in</div>
+      return (
+        <button onClick={onSignOutClick} className="ui red google button">
+          <i className="google icon"/>
+          Sign Out
+        </button>
+      )
     } else {
-      return <div>Im not signed in</div>
-    }
+      return (
+        <button onClick={onSignInClick} className="ui red google button">
+          <i  className="google icon"/>
+          Sign In with Google
+        </button>
+      )    }
   }
   
 	return <div>{renderAuthButton()}</div>;
