@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import Input from '../Input';
 
 const StreamCreate = ({ handleSubmit }) => {
 	const renderInput = ({ input, label }) => {
@@ -17,13 +18,15 @@ const StreamCreate = ({ handleSubmit }) => {
 	return (
 		<div>
 			<form onSubmit={handleSubmit(onSubmit)} className='ui form'>
-				<Field name='title' component={renderInput} label='Enter Title' />
+				<Field name='title' component={Input} label='Enter Title' />
 				<Field
 					name='description'
-					component={renderInput}
+					component={Input}
 					label='Enter Desription'
 				/>
 			</form>
+      <br />
+      <button className="ui button primary">Submit</button>
 		</div>
 	);
 };
