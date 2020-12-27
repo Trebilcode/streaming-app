@@ -7,7 +7,7 @@ const StreamList = ({ fetchStreams, streams, currentUserId, isSignedIn }) => {
 	useEffect(() => {
 		fetchStreams();
 	}, []);
-
+console.log(streams)
 	const renderAdmin = stream => {
 		if (stream.userId === currentUserId) {
 			return (
@@ -28,7 +28,7 @@ const StreamList = ({ fetchStreams, streams, currentUserId, isSignedIn }) => {
 					{renderAdmin(stream)}
 					<i className='large middle aligned icon camera' />
 					<div className='content'>
-						{stream.title}
+						<Link className="header" to={`/streams/${stream.id}`}>{stream.title}</Link>
 						<div className='description'>{stream.description}</div>
 					</div>
 				</div>
